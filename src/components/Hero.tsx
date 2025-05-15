@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 const Hero = () => {
   return (
     <div className="flex flex-col">
-    <figure className="h-[50vh] border border-solid border-green-500">
+    <figure className="h-[50vh]">
       <img 
       src={HeroImg} 
       alt="Food-With-Eggs" 
