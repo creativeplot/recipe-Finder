@@ -47,6 +47,44 @@ const NavBar = () => {
 
     },[isOpen])
 
+    // trap focus in the drawer
+    useEffect(() => {
+        const trap = (e:KeyboardEvent) => {
+            if(e.key !== 'Tab') return;
+
+            if(!drawerRef.current) return;
+
+            const focusList = Array.from(
+                drawerRef.current?.querySelectorAll<HTMLElement>('button, a')
+            )
+
+            const firstItem = focusList[0]
+            const lastItem = focusList[focusList.length - 1]
+            if (e.shiftKey) {
+                // Shift+Tab on the first element → wrap to last
+                if (document.activeElement === firstItem) {
+                    e.preventDefault();
+                    lastItem.focus();
+                }
+
+            } else {
+                // Tab on the last element → wrap to first
+                if (document.activeElement === lastItem) {
+                    e.preventDefault();
+                    firstItem.focus();
+                }
+            }
+        }
+
+        if(isOpen){
+            drawerRef.current?.addEventListener('keydown', trap)
+        }
+
+        return () => {
+            drawerRef.current && drawerRef.current.removeEventListener('keydown', trap)
+        }
+    },[isOpen])
+
     const activateSubMenu = (dropDownName: string) => {
         setOpenSubMenu(openSubMenu === dropDownName ? null: dropDownName)
     }
