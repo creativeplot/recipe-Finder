@@ -1,7 +1,12 @@
 import { IoMenu } from "react-icons/io5";
 import { useState, useRef, useEffect } from "react";
+import { navBar, filterMenu, footer } from "../dataUltis/data";
 
 const NavBar = () => {
+
+    const navLinkList = navBar.map((array) => {
+        return array.links
+    })
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -92,25 +97,28 @@ const NavBar = () => {
   return (
     <>
     <header className="w-full flex justify-between items-center px-4 py-4 md:justify-center h-[12vh]">
-        <nav className="flex w-full justify-around md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
+        <nav className="flex w-full max-sm:justify-around md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[50vw]">
 
-            <div className="flex items-center text-3xl lg:text-4xl max-md:pl-10">
-                <h1 className="font-bold">Cooking</h1>
+            {navBar.map((navData, i) => (
+            <div key={i} className="sm:min-w-full flex">
+                <div className="flex items-center text-3xl lg:text-4xl max-md:pl-10">
+                    <h1 className="font-bold">{navData.logo}</h1>
             </div>
 
-            <div className="max-sm:hidden flex gap-x-5 text-lg items-center justify-center w-full pl-10">
-                <p>Recipes</p>
-                <p>Ingredients</p>
-                <p>Best-Chefs</p>
-                <p>About</p>
+            <div className="max-sm:hidden text-lg flex items-end justify-end w-full gap-4 max-lg:pr-8">
+                {navData.links.map((link) => (
+                    <p key={link}>{link}</p>
+                ))}
             </div>
+            </div>
+            ))}
 
-            <div className="border border-solid border-black flex items-center max-sm:flex-1 max-sm:justify-end sm:hidden">
+            <div className="flex items-center max-sm:flex-1 max-sm:justify-end sm:hidden">
             <button
             aria-controls="mobile-nav"
             aria-expanded={isOpen}
             aria-label={isOpen ? "Menu Open" : "Menu Closed"}
-            className="border border-solid border-green-300 text-5xl"
+            className="text-5xl"
             ref={menuButtonRef}
             onClick={() => {
                 setIsOpen((open) => !open)

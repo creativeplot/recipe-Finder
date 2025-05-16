@@ -20,37 +20,10 @@ const Filter = () => {
                 <input type="checkbox" className="w-4 h-4"/>
                 high-calorie
             </label>
-            <label htmlFor="">
-                <input type="checkbox" className="w-4 h-4"/>
-                carnivore
-            </label>
-            <label htmlFor="">
-                <input type="checkbox" className="w-4 h-4"/>
-                low-carb
-            </label>
-            <label htmlFor="">
-                <input type="checkbox" className="w-4 h-4"/>
-                some-other
-            </label>
             </div>
 
             <div className="border border-solid border-purple-700 flex flex-col pl-8 gap-4">
-                <label htmlFor="">
-                <input type="checkbox" />
-                10-minutes
-            </label>
-            <label htmlFor="">
-                <input type="checkbox" />
-                20-minutes
-            </label>
-            <label htmlFor="">
-                <input type="checkbox" />
-                30-minutes
-            </label>
-            <label htmlFor="">
-                <input type="checkbox" />
-                40-minutes
-            </label>
+                <p>nice</p>
             </div>
       </div>
       )}
