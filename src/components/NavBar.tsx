@@ -91,14 +91,14 @@ const NavBar = () => {
 
   return (
     <>
-    <header className="border border-solid border-black w-full flex justify-between items-center px-4 py-4 md:justify-center">
-        <nav className="border border-solid border-black flex w-full justify-around md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
+    <header className="w-full flex justify-between items-center px-4 py-4 md:justify-center h-[12vh]">
+        <nav className="flex w-full justify-around md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
 
-            <div className="border border-solid border-black flex items-center text-3xl lg:text-4xl pr-10">
+            <div className="flex items-center text-3xl lg:text-4xl max-md:pl-10">
                 <h1 className="font-bold">Cooking</h1>
             </div>
 
-            <div className="max-sm:hidden flex border border-solid border-black gap-x-5 text-lg items-center justify-center w-full">
+            <div className="max-sm:hidden flex gap-x-5 text-lg items-center justify-center w-full pl-10">
                 <p>Recipes</p>
                 <p>Ingredients</p>
                 <p>Best-Chefs</p>
