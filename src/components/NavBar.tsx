@@ -1,6 +1,7 @@
 import { IoMenu } from "react-icons/io5";
 import { useState, useRef, useEffect } from "react";
 import { navBar, filterMenu, footer } from "../dataUltis/data";
+import { Link } from "react-router";
 
 const NavBar = () => {
 
@@ -106,9 +107,10 @@ const NavBar = () => {
             </div>
 
             <div className="max-sm:hidden text-lg flex items-end justify-end w-full gap-4 max-lg:pr-8">
-                {navData.links.map((link) => (
-                    <p key={link}>{link}</p>
-                ))}
+                <a href="">{navData.links[0]}</a>
+                <a href="">{navData.links[1]}</a>
+                <a href="">{navData.links[2]}</a>
+                <Link to='/about'>{navData.links[3]}</Link>
             </div>
             </div>
             ))}
@@ -181,8 +183,7 @@ const NavBar = () => {
             </li>
 
             <li>
-            <a href=""
-            className="text-2xl font-semibold">About</a>
+                <Link to="/about" className="text-2xl font-semibold">About</Link>
             </li>
         </ul>
     </nav>
