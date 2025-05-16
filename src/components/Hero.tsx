@@ -5,11 +5,11 @@ import { IoSearch } from "react-icons/io5";
 const Hero = () => {
   return (
     <div className="flex flex-col">
-    <figure className="h-[50vh]">
+    <figure className="h-[50vh] lg:h-[74vh] flex justify-center">
       <img 
       src={HeroImg} 
       alt="Food-With-Eggs" 
-      className="object-cover h-full max-h-full w-full"
+      className="object-cover h-full max-h-full w-full lg:max-w-[85vw] xl:max-w-[75vw]"
       />
     </figure>
     
