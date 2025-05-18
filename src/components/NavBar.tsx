@@ -106,7 +106,7 @@ const NavBar = () => {
                     <h1 className="font-bold">{navData.logo}</h1>
             </div>
 
-            <div className="max-sm:hidden text-lg flex items-end justify-end w-full gap-4 max-lg:pr-8">
+            <div className="max-sm:hidden text-lg flex items-end justify-end w-full gap-8 lg:gap-16 max-lg:pr-8">
                 <a href="">{navData.links[0]}</a>
                 <a href="">{navData.links[1]}</a>
                 <a href="">{navData.links[2]}</a>
