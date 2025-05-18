@@ -1,14 +1,25 @@
 import { useState, useRef, useEffect } from "react"
 
+/* Why Use a Separate Component for Lazy Loading? */
+
+/* Code reuse: If you're lazy-loading many images, it keeps things DRY.
+
+Encapsulation: Keeps logic (observer, visibility state, etc.) out of your main component.
+
+Maintainability: Easier to add loading indicators, blur effects, fallback handling, etc.
+*/
+
 type lazyProps = {
     src: string,
     alt: string,
 }
 
-// this is a component that i can use to make lazy laoding requests but i need to use props for that {src, alt, className}
 const LazyLoadingImages = ({src, alt}:lazyProps) => {
 
-    const [isVisible, setIsVisible] = useState(false)
+    // handle the lazyload images loading 
+
+    const [ isVisible, setIsVisible ] = useState(false)
+    const [ isLoaded, setIsLoaded ] = useState(false)
     const imgRef = useRef(null);
 
 
@@ -35,12 +46,20 @@ const LazyLoadingImages = ({src, alt}:lazyProps) => {
      },[])
 
     return (
-        <figure>
-            <img
-                ref={imgRef}
-                src={isVisible ? src : 'noImage'}
-                alt={alt} />
-        </figure>
+        <>
+        {!isLoaded && (
+        <div className="min-h-[40vh] flex items-center justify-center bg-gray-100">
+          <div className="w-6 h-6 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        )}
+            <figure>
+                <img
+                    ref={imgRef}
+                    src={isVisible ? src : 'noImage'}
+                    alt={alt}
+                    onLoad={() => setIsLoaded(true)} />
+            </figure>
+        </>
     )
 }
 
