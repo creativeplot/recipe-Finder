@@ -4,6 +4,7 @@ import BodyContent from "./components/BodyContent"
 import Footer from "./components/Footer"
 
 // Features a need to add
+// change the loading feature or fix mine because it is not working the way i intended it to
 // a really simple filter
 // search recipes by ingredients
 // pagination

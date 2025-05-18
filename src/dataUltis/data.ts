@@ -7,10 +7,13 @@ type NavBarType = {
     links: string[]
 }
 
+
+
 type FilterMenuType = {
     heading: string,
-    filterMenu: string[]
+    choices: string[]
 }
+
 
 type FooterType = {
     logo: string,
@@ -32,8 +35,16 @@ export const navBar: NavBarType[] = [
 
 export const filterMenu: FilterMenuType[] = [
     {
-        heading: 'Filter',
-        filterMenu: ['']
+        heading: 'Meal-type',
+        choices: ['Breakfeast', 'Lunch', 'Snack', 'Dinner']
+    },
+    {
+        heading: 'Cuisine',
+        choices: ['American', 'Mexican', 'Italian', 'Asian', 'Mediterranean']
+    },
+    {
+        heading: 'Difficulty',
+        choices: ['Easy', 'Medium', 'Hard']
     }
 ]
 

@@ -46,20 +46,12 @@ const LazyLoadingImages = ({src, alt}:lazyProps) => {
      },[])
 
     return (
-        <>
-        {!isLoaded && (
-        <div className="min-h-[40vh] flex items-center justify-center bg-gray-100">
-          <div className="w-6 h-6 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-        )}
-            <figure>
-                <img
-                    ref={imgRef}
-                    src={isVisible ? src : 'noImage'}
-                    alt={alt}
-                    onLoad={() => setIsLoaded(true)} />
-            </figure>
-        </>
+        <figure>
+            <img
+                ref={imgRef}
+                src={isVisible ? src : undefined}
+                />
+        </figure>
     )
 }
 
