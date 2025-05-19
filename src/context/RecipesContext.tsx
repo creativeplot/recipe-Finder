@@ -6,6 +6,8 @@ type RecipeContextType = {
     recipes: Recipe[],
     loading: boolean,
     error: string | null,
+    skipPages: number,
+    currentPage: number
 }
 
 
@@ -21,13 +23,23 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [recipes, setRecipes] = useState<Recipe[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const [skipPages, setSkipPages] = useState(4)
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const limitPages = 4
 
     useEffect(() => {
+
+        // i need to make pagination
+        // to make that happen i limit the page numbers
+        // then i attach skipPages with a fixed numbers to my buttons
+        // then i figure a way to use currentPage in my code to sinalize that i am in the first page so i can disable the go back button
+        // use chat gpt for reference
 
         const fetchRecipesFromServer = async () => {
 
             try {
-                const URL = "https://dummyjson.com/recipes"
+                const URL = `https://dummyjson.com/recipes?limit=${limitPages}&skip=${skipPages}`
                 const response = await fetch(URL)
 
                 if(!response.ok) {
@@ -56,7 +68,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     },[])
 
     return (
-        <RecipeContext.Provider value={{recipes, loading, error}}>
+        <RecipeContext.Provider value={{recipes, loading, error, skipPages, currentPage}}>
             {children}
         </RecipeContext.Provider>
     )

@@ -40,7 +40,7 @@ export const filterMenu: FilterMenuType[] = [
     },
     {
         heading: 'Cuisine',
-        choices: ['American', 'Mexican', 'Italian', 'Asian', 'Mediterranean']
+        choices: ['Mexican', 'Italian', 'Asian', 'Mediterranean', 'American',]
     },
     {
         heading: 'Difficulty',

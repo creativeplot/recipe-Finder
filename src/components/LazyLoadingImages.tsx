@@ -14,12 +14,11 @@ type lazyProps = {
     alt: string,
 }
 
-const LazyLoadingImages = ({src, alt}:lazyProps) => {
+const LazyLoadingImages = ({src}:lazyProps) => {
 
     // handle the lazyload images loading 
 
     const [ isVisible, setIsVisible ] = useState(false)
-    const [ isLoaded, setIsLoaded ] = useState(false)
     const imgRef = useRef(null);
 
 

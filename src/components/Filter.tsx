@@ -4,6 +4,7 @@ import { filterMenu } from "../dataUltis/data";
 
 const Filter = () => {
     const [ isOpen, setIsOpen ] = useState(false)
+    
 
   return (
     <>
@@ -15,10 +16,10 @@ const Filter = () => {
         <IoOptionsOutline className="text-3xl"/>
       </div>
       {isOpen && (
-        <div className="border border-solid border-purple-500 w-full grid grid-cols-3 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
+        <div className="border border-solid border-purple-500 w-full sm:grid sm:grid-cols-3 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
           {filterMenu.map((item, i) => (
             <div key={i}>
-              <h1 className="pl-12 text-emerald-500">{item.heading}</h1>
+              <h1 className="pl-12 text-emerald-500 max-sm:p-4">{item.heading}</h1>
               {item.choices.map((choice) => (
                 <div key={choice} className="border border-solid border-purple-100 flex flex-col gap-4 pl-8">
                 <label htmlFor={choice} className="flex items-center gap-x-2">
