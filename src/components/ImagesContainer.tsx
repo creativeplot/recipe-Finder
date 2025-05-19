@@ -1,6 +1,9 @@
 import { useRecipes } from "../context/RecipesContext"
 import { useState, useRef, useEffect } from "react"
 import LazyLoadingImages from "./LazyLoadingImages"
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
+
 
 
 const ImagesContainer = () => {
@@ -23,6 +26,14 @@ const ImagesContainer = () => {
                           src={recipe.image}
                           alt={recipe.name} />
                   ))}
+            {recipes && <div className="min-h-16 col-[1_/_-1] flex items-center justify-around lg:justify-center lg:gap-x-16 mt-16">
+            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400">
+                <FaArrowLeft/>
+            </button>
+            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400">
+                <FaArrowRight/>
+            </button>
+            </div> }
                   {
                     error && <div className="min-h-[40vh] flex items-center justify-center col-[1_/_-1] bg-gray-100">
                         <h1 className="text-center text-3xl">{error}</h1>
