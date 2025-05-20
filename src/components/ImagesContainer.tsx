@@ -8,9 +8,29 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const ImagesContainer = () => {
 
-  const { recipes, loading, error } = useRecipes()
+  const { recipes, loading, error, currentPage, setSkipPages, setCurrentPage } = useRecipes()
 
   // handle the api loading
+
+  const handleNextButton = () => {
+    
+    if(currentPage === 5) {
+        return
+    }
+
+    setCurrentPage((current) => current + 1)
+    setSkipPages((skip) => skip + 10)
+
+  } 
+
+  const handlePreviousButtton = () => {
+
+    if(currentPage === 1) {return}
+
+    setSkipPages((skip) => skip - 10)
+
+    setCurrentPage((current) => current - 1)
+  }
 
 
   console.log(recipes)
@@ -27,10 +47,12 @@ const ImagesContainer = () => {
                           alt={recipe.name} />
                   ))}
             {recipes && <div className="min-h-16 col-[1_/_-1] flex items-center justify-around lg:justify-center lg:gap-x-16 mt-16">
-            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400">
+            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400 cursor-pointer"
+            onClick={handlePreviousButtton}>
                 <FaArrowLeft/>
             </button>
-            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400">
+            <button className="w-20 h-8 rounded-full flex justify-center items-center text-white text-2xl bg-emerald-400 cursor-pointer"
+            onClick={handleNextButton}>
                 <FaArrowRight/>
             </button>
             </div> }

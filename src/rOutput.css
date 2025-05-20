@@ -594,10 +594,6 @@ video {
   display: flex;
 }
 
-.grid {
-  display: grid;
-}
-
 .hidden {
   display: none;
 }
@@ -682,10 +678,6 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -825,10 +817,6 @@ video {
      object-fit: cover;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -956,10 +944,6 @@ video {
 
   .max-sm\:p-4 {
     padding: 1rem;
-  }
-
-  .max-sm\:pb-4 {
-    padding-bottom: 1rem;
   }
 }
 

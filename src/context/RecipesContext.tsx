@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState} from "react"
+import { createContext, useContext, useEffect, useState, } from "react"
+import type {Dispatch, SetStateAction} from "react"
 import type { Recipe } from "../types/recipeTypes"
 
 
@@ -6,8 +7,9 @@ type RecipeContextType = {
     recipes: Recipe[],
     loading: boolean,
     error: string | null,
-    skipPages: number,
-    currentPage: number
+    currentPage: number,
+    setSkipPages: Dispatch<SetStateAction<number>>,
+    setCurrentPage: Dispatch<SetStateAction<number>>
 }
 
 
@@ -23,21 +25,16 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [recipes, setRecipes] = useState<Recipe[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const [skipPages, setSkipPages] = useState(4)
+    const [skipPages, setSkipPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
 
-    const limitPages = 4
+    const limitPages = 10;
 
     useEffect(() => {
 
-        // i need to make pagination
-        // to make that happen i limit the page numbers
-        // then i attach skipPages with a fixed numbers to my buttons
-        // then i figure a way to use currentPage in my code to sinalize that i am in the first page so i can disable the go back button
-        // use chat gpt for reference
-
         const fetchRecipesFromServer = async () => {
 
+            setLoading(true)
             try {
                 const URL = `https://dummyjson.com/recipes?limit=${limitPages}&skip=${skipPages}`
                 const response = await fetch(URL)
@@ -57,6 +54,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                 if (error instanceof Error) {
                     setError(error.message)
                 }
+                setLoading(false)
 
             } finally {
                 setLoading(false)
@@ -65,10 +63,10 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
         }
 
         fetchRecipesFromServer()
-    },[])
+    },[skipPages])
 
     return (
-        <RecipeContext.Provider value={{recipes, loading, error, skipPages, currentPage}}>
+        <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage}}>
             {children}
         </RecipeContext.Provider>
     )
