@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useState, } from "react"
 import type {Dispatch, SetStateAction} from "react"
 import type { Recipe } from "../types/recipeTypes"
+import type { Filters } from "../types/filterTypes"
+import { initialFilters } from "../types/filterTypes"
 
+// i createad the filtertypes that will store that values that i select from the filters.
+// now i need a way to implente the filtersTypes here
 
 type RecipeContextType = {
     recipes: Recipe[],
@@ -29,6 +33,9 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [currentPage, setCurrentPage] = useState(1)
 
     const limitPages = 10;
+
+    // i finished pagination!
+    // Now i need to work on filter OR in the search bar
 
     useEffect(() => {
 
