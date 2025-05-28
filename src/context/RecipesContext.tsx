@@ -7,17 +7,21 @@ import { initialFilters } from "../types/filterTypes"
 // i createad the filtertypes that will store that values that i select from the filters.
 // now i need a way to implente the filtersTypes here
 
-type RecipeContextType = {
+export type RecipeContextType = {
     recipes: Recipe[],
     loading: boolean,
     error: string | null,
     currentPage: number,
     setSkipPages: Dispatch<SetStateAction<number>>,
-    setCurrentPage: Dispatch<SetStateAction<number>>
+    setCurrentPage: Dispatch<SetStateAction<number>>,
+    /*  */
+    filters: Filters,
+    toggleFilter: (category: keyof Filters, value:string) => void, 
+    // i type for a function inside the provider
 }
 
 
-const RecipeContext = createContext<RecipeContextType | null>(null)
+export const RecipeContext = createContext<RecipeContextType | null>(null)
 
 
 type RecipeProviderProps = {
@@ -31,11 +35,38 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [error, setError] = useState<string | null>(null)
     const [skipPages, setSkipPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
+    const [filters, setFilters] = useState<Filters>(initialFilters)
 
-    const limitPages = 10;
+    const limitPages = 50;
 
-    // i finished pagination!
-    // Now i need to work on filter OR in the search bar
+    /* category: keyof Filters: Accepts a key from the Filters type (i.e., "mealType" | "cuisine" | "difficulty").
+
+    value: string: The value you want to toggle (e.g., "Vegetarian" or "Asian"). 
+    */
+    const toggleFilter = (category: keyof Filters, value: string) => {
+
+        // setFilter receives the current state prev.
+        setFilters((prev) => {
+            const current = prev[category] ?? []
+            // Check if the value is already selected
+            // prev[category] accesses the array of the selected values in the given category.
+            // includes(value) checks if the clicked value is already selected.
+            const selected = current.includes(value)
+
+            // Add or Remove the Value
+            // if selected is true Remove it using filter.
+            const updated = selected // ←  use **current** here
+                ? current.filter(item => item !== value)
+                : [...current, value]; // if not Add it using the spread operator.
+            return { ...prev, [category]: updated} // Spread prev to keep the rest of the filter values unchanged.
+            // Update only the category passed in with the new list.
+        })
+
+        // reseting the pages when a filter is selected
+        setSkipPages(0)
+        setCurrentPage(1)
+    }
+
 
     useEffect(() => {
 
@@ -43,18 +74,50 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
 
             setLoading(true)
             try {
-                const URL = `https://dummyjson.com/recipes?limit=${limitPages}&skip=${skipPages}`
+
+                /* build a query string the API will understand
+                   (dummyjson lets you filter by meal type out
+                   of the box, everything else we’ll filter on
+                   the client side) */
+                const params = new URLSearchParams({
+                    limit: String(limitPages),
+                    skip: String(skipPages)
+                }) 
+
+                if(filters.mealType.length) {
+                    // dummyjson endpoint: /recipes/meal-type/{meal}
+                    // but it only handles ONE meal at a time, so we
+                    // just send the first selected one
+                    params.set('meal-type', filters.mealType[0])
+                }
+
+                const URL = `https://dummyjson.com/recipes?${params.toString()}`
+                console.log("Fetching:", URL);  
                 const response = await fetch(URL)
 
                 if(!response.ok) {
-                    throw new Error('Something is not right with the response my man')
+                    throw new Error('Server is not happy, my man')
                 }
 
                 const data = await response.json()
+                console.log(data)
 
-                const recipes  = data.recipes
+                // const recipes  = data.recipes
+                let list: Recipe[] = data.recipes
 
-                setRecipes(recipes)
+                list = list.filter((r) => {
+                    const mealOk =
+                        !filters.mealType.length ||
+                        filters.mealType.some((m) => r.mealType.includes(m));
+                    const cuisineOk =
+                        !filters.cuisine.length || filters.cuisine.includes(r.cuisine);
+                    const difficultyOk =
+                        !filters.difficulty.length ||
+                        filters.difficulty.includes(r.difficulty);
+                    return mealOk && cuisineOk && difficultyOk;
+                });
+
+                setRecipes(list)
 
             } catch (error) {
 
@@ -70,20 +133,20 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
         }
 
         fetchRecipesFromServer()
-    },[skipPages])
+    },[skipPages, filters])
 
     return (
-        <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage}}>
+        <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage, filters, toggleFilter}}>
             {children}
         </RecipeContext.Provider>
     )
 }
 
 
-export const useRecipes = (): RecipeContextType => {
+/* export const useRecipes = (): RecipeContextType => {
     const context = useContext(RecipeContext);
     if(!context) {
         throw new Error("useRecipes must be used within a recipesProvider")
     }
     return context
-}
+} */

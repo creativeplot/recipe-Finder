@@ -35,18 +35,18 @@ export const navBar: NavBarType[] = [
 
 export const filterMenu: FilterMenuType[] = [
     {
-        heading: 'Meal-type',
-        choices: ['Breakfeast', 'Lunch', 'Snack', 'Dinner']
+        heading: 'mealType',
+        choices: ['Breakfast', 'Lunch', 'Snack', 'Dinner']
     },
     {
-        heading: 'Cuisine',
-        choices: ['Mexican', 'Italian', 'Asian', 'Mediterranean', 'American',]
+        heading: 'cuisine',
+        choices: ['Mexican', 'Italian', 'Asian', 'Mediterranean', 'American']
     },
     {
-        heading: 'Difficulty',
+        heading: 'difficulty',
         choices: ['Easy', 'Medium', 'Hard']
     }
-]
+] as const;
 
 export const footer: FooterType[] = [
     {
