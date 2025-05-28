@@ -44,7 +44,7 @@ export const filterMenu: FilterMenuType[] = [
     },
     {
         heading: 'difficulty',
-        choices: ['Easy', 'Medium', 'Hard']
+        choices: ['Easy', 'Medium']
     }
 ] as const;
 

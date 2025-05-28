@@ -37,7 +37,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [filters, setFilters] = useState<Filters>(initialFilters)
 
-    const limitPages = 50;
+    const limitPages = 10;
 
     /* category: keyof Filters: Accepts a key from the Filters type (i.e., "mealType" | "cuisine" | "difficulty").
 
@@ -73,6 +73,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
         const fetchRecipesFromServer = async () => {
 
             setLoading(true)
+            // now i am having a problem that when i select breakfast lunch etc it only selects the recipes that are already displayed with those values instead of get the recipes from the server, i think the problem is how the url is set up i need to change that next time 
             try {
 
                 /* build a query string the API will understand
@@ -84,14 +85,16 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                     skip: String(skipPages)
                 }) 
 
-                if(filters.mealType.length) {
+                /* if(filters.mealType.length) {
                     // dummyjson endpoint: /recipes/meal-type/{meal}
                     // but it only handles ONE meal at a time, so we
                     // just send the first selected one
                     params.set('meal-type', filters.mealType[0])
-                }
+                } */
 
-                const URL = `https://dummyjson.com/recipes?${params.toString()}`
+                const mealType = filters.mealType.length ? '/meal-type/' + filters.mealType[0] + '?' : '?';
+
+                const URL = `https://dummyjson.com/recipes${mealType}${params}`
                 console.log("Fetching:", URL);  
                 const response = await fetch(URL)
 
