@@ -18,6 +18,8 @@ export type RecipeContextType = {
     filters: Filters,
     toggleFilter: (category: keyof Filters, value:string) => void, 
     // i type for a function inside the provider
+    /*  */
+    setSearchValue: Dispatch<SetStateAction<string>>
 }
 
 
@@ -36,8 +38,11 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     const [skipPages, setSkipPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [filters, setFilters] = useState<Filters>(initialFilters)
+    const [searchValue, setSearchValue] = useState('')
 
     const limitPages = 10;
+
+    console.log(searchValue)
 
     /* category: keyof Filters: Accepts a key from the Filters type (i.e., "mealType" | "cuisine" | "difficulty").
 
@@ -96,19 +101,26 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                 const mealType = filters.mealType.length ? 'meal-type/' + filters.mealType[0] + '?' : '';
                 const cuisineTag = filters.cuisine.length ? 'tag/' + filters.cuisine[0] + '?' : '';
 
-                const URL = `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`
-                console.log("Fetching:", URL);  
-                const response = await fetch(URL)
+                // now i need to make this url work because when i type and submit the name nothing happens but if i use the filter i get the recipes that i passed on the search bar
+
+                const URL = `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`;
+
+                const URL2 = searchValue !== '' ? `https://dummyjson.com/recipes/search?q=${searchValue}` : `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`;
+
+                // console.log("Fetching:", URL);
+                console.log(URL2)
+
+                const response = await fetch(URL2)
 
                 if(!response.ok) {
                     throw new Error('Server is not happy, my man')
                 }
 
                 const data = await response.json()
+
                 console.log(data)
 
                 const recipes  = data.recipes
-                let list: Recipe[] = data.recipes
 
                 setRecipes(recipes)
 
@@ -129,7 +141,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
     },[skipPages, filters])
 
     return (
-        <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage, filters, toggleFilter}}>
+        <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage, filters, toggleFilter, setSearchValue}}>
             {children}
         </RecipeContext.Provider>
     )

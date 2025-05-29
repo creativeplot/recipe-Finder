@@ -14,8 +14,6 @@ const Filter = () => {
     const [ isOpen, setIsOpen ] = useState(false)
     const { filters, toggleFilter} = useRecipes()
 
-    console.log()
-
   return (
     <>
     <div 
@@ -28,7 +26,7 @@ const Filter = () => {
       </div>
 
       {isOpen && (
-        <div className="border border-solid border-purple-500 w-full sm:grid sm:grid-cols-3 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
+        <div className="border border-solid border-purple-500 w-full sm:grid sm:grid-cols-2 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
           {filterMenu.map(({heading, choices}) => {
             const key = headingToKey[heading as keyof typeof headingToKey]
 

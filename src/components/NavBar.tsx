@@ -5,9 +5,9 @@ import { Link } from "react-router";
 
 const NavBar = () => {
 
-    const navLinkList = navBar.map((array) => {
-        return array.links
-    })
+    // const navLinkList = navBar.map((array) => {
+    //     return array.links
+    // })
 
     const [isOpen, setIsOpen] = useState(false)
 
