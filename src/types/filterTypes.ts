@@ -3,13 +3,11 @@
 
 export type Filters = {
     mealType: string[],
-    cuisine: string[],
-    difficulty: string[]
+    cuisine: string[]
 }
 
 
 export const initialFilters: Filters = {
     mealType: [],
-    cuisine: [],
-    difficulty: []
+    cuisine: []
 }

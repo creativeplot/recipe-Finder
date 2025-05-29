@@ -72,8 +72,9 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
 
         const fetchRecipesFromServer = async () => {
 
+            // Now i need to fix cuisine and difficulty because they appear to have the same problem as the breakfast, they only select what is already in the page instead of getting everything from the server
+
             setLoading(true)
-            // now i am having a problem that when i select breakfast lunch etc it only selects the recipes that are already displayed with those values instead of get the recipes from the server, i think the problem is how the url is set up i need to change that next time 
             try {
 
                 /* build a query string the API will understand
@@ -92,9 +93,10 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                     params.set('meal-type', filters.mealType[0])
                 } */
 
-                const mealType = filters.mealType.length ? '/meal-type/' + filters.mealType[0] + '?' : '?';
+                const mealType = filters.mealType.length ? 'meal-type/' + filters.mealType[0] + '?' : '';
+                const cuisineTag = filters.cuisine.length ? 'tag/' + filters.cuisine[0] + '?' : '';
 
-                const URL = `https://dummyjson.com/recipes${mealType}${params}`
+                const URL = `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`
                 console.log("Fetching:", URL);  
                 const response = await fetch(URL)
 
@@ -105,22 +107,10 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                 const data = await response.json()
                 console.log(data)
 
-                // const recipes  = data.recipes
+                const recipes  = data.recipes
                 let list: Recipe[] = data.recipes
 
-                list = list.filter((r) => {
-                    const mealOk =
-                        !filters.mealType.length ||
-                        filters.mealType.some((m) => r.mealType.includes(m));
-                    const cuisineOk =
-                        !filters.cuisine.length || filters.cuisine.includes(r.cuisine);
-                    const difficultyOk =
-                        !filters.difficulty.length ||
-                        filters.difficulty.includes(r.difficulty);
-                    return mealOk && cuisineOk && difficultyOk;
-                });
-
-                setRecipes(list)
+                setRecipes(recipes)
 
             } catch (error) {
 

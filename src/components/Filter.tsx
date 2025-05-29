@@ -8,7 +8,6 @@ import type { Filters } from "../types/filterTypes";
 const headingToKey: Record<keyof Filters, keyof Filters> = {
   mealType: "mealType",
   cuisine: "cuisine",
-  difficulty: "difficulty",
 };
 
 const Filter = () => {
