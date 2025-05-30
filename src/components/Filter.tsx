@@ -17,7 +17,7 @@ const Filter = () => {
   return (
     <>
     <div 
-    className="border border-solid border-purple-500 h-12 bg-purple-500 text-2xl w-full flex justify-between items-center px-8 cursor-pointer md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]"
+    className="border border-solid border-green-400 h-12 bg-green-400 text-2xl w-full flex justify-between items-center px-8 cursor-pointer md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]"
     onClick={() => {
         setIsOpen((open) => !open)
     }}>
@@ -26,7 +26,7 @@ const Filter = () => {
       </div>
 
       {isOpen && (
-        <div className="border border-solid border-purple-500 w-full sm:grid sm:grid-cols-2 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
+        <div className="border border-solid border-green-400 w-full sm:grid sm:grid-cols-2 text-2xl md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw]">
           {filterMenu.map(({heading, choices}) => {
             const key = headingToKey[heading as keyof typeof headingToKey]
 
@@ -34,12 +34,12 @@ const Filter = () => {
 
             return (
               <div key={heading}>
-              <h1 className="pl-12 text-emerald-500 max-sm:p-4">{heading}</h1>
+              <h1 className="pl-12 max-sm:p-4 py-4">{heading}</h1>
 
               {choices.map((choice) => (
                 <div 
                 key={choice} 
-                className="border border-solid border-purple-100 flex flex-col gap-4 pl-8"
+                className="border border-solid border-zinc-100 flex flex-col gap-4 pl-8 py-4"
                 >
                 <label htmlFor={choice} className="flex items-center gap-x-2">
                   <input 

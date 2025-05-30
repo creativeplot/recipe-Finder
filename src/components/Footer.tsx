@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="min-h-[40vh] mt-28 py-8 px-4 flex flex-col gap-y-8 items-center bg-green-500">
+    <footer className="min-h-[40vh] mt-28 py-8 px-4 flex flex-col gap-y-8 items-center bg-green-400">
       <h1 className="text-2xl lg:text-4xl font-semibold">Cooking</h1>
       <div className="flex flex-col gap-x-5 text-center gap-y-4">
       <a href="">Community resources</a>
