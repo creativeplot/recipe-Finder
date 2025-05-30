@@ -3,14 +3,6 @@ import { IoSearch } from "react-icons/io5";
 import { useRecipes } from "../context/useRecipes";
 import { useState } from "react";
 
-// next step is to make the search bar work by selecting the recipes by name
-// so to make it happen i need to add a new search type on RecipeContextType
-// then i need to create a useState with the search
-// then i pass it down to this component here
-// i use onChange in input to get the name that is being passed
-// in the url if there is a search query i render only the search if there is not the default search query will be on place
-// But maybe i will work on it later because i want to build my portfolio
-
 const Hero = () => {
 
   const { setSearchValue } = useRecipes()

@@ -1,6 +1,6 @@
 import { IoMenu } from "react-icons/io5";
 import { useState, useRef, useEffect } from "react";
-import { navBar, filterMenu, footer } from "../dataUltis/data";
+import { navBar} from "../dataUltis/data";
 import { Link } from "react-router";
 
 const NavBar = () => {

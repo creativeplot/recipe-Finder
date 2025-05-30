@@ -1,11 +1,8 @@
-import { createContext, useContext, useEffect, useState, } from "react"
+import { createContext, useEffect, useState, } from "react"
 import type {Dispatch, SetStateAction} from "react"
 import type { Recipe } from "../types/recipeTypes"
 import type { Filters } from "../types/filterTypes"
 import { initialFilters } from "../types/filterTypes"
-
-// i createad the filtertypes that will store that values that i select from the filters.
-// now i need a way to implente the filtersTypes here
 
 export type RecipeContextType = {
     recipes: Recipe[],
@@ -102,14 +99,12 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                 const mealType = filters.mealType.length ? 'meal-type/' + filters.mealType[0] + '?' : '';
                 const cuisineTag = filters.cuisine.length ? 'tag/' + filters.cuisine[0] + '?' : '';
 
-                // now i need to make this url work because when i type and submit the name nothing happens but if i use the filter i get the recipes that i passed on the search bar
-
-                const URL = `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`;
+                /* const URL = `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`; */
 
                 const URL2 = searchValue !== '' ? `https://dummyjson.com/recipes/search?q=${searchValue}` : `https://dummyjson.com/recipes${mealType || cuisineTag ? '/' : '?'}${cuisineTag}${mealType}${params}`;
 
                 // console.log("Fetching:", URL);
-                console.log(URL2)
+                // console.log(URL2)
 
                 const response = await fetch(URL2)
 
@@ -118,8 +113,6 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
                 }
 
                 const data = await response.json()
-
-                console.log(data)
 
                 const recipes  = data.recipes
 

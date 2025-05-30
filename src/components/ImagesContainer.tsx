@@ -1,5 +1,4 @@
 import { useRecipes } from "../context/useRecipes"
-import { useState, useRef, useEffect } from "react"
 import LazyLoadingImages from "./LazyLoadingImages"
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
