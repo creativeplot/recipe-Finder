@@ -19,13 +19,17 @@ const Hero = () => {
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if(inputValue === '') {return}
+    if(inputValue === '') {
+      setSearchValue('')
+    }
     setSearchValue(inputValue)
     setInputValue('')
   }
 
   const handleClick = () => {
-    if(inputValue === '') {return}
+     if(inputValue === '') {
+      setSearchValue('')
+    }
     setSearchValue(inputValue)
     setInputValue('')
   }

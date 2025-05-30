@@ -52,6 +52,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
 
         // setFilter receives the current state prev.
         setFilters((prev) => {
+            setSearchValue('')
             const current = prev[category] ?? []
             // Check if the value is already selected
             // prev[category] accesses the array of the selected values in the given category.
@@ -138,7 +139,7 @@ export const RecipesProvider = ({children}: RecipeProviderProps) => {
         }
 
         fetchRecipesFromServer()
-    },[skipPages, filters])
+    },[skipPages, filters, searchValue])
 
     return (
         <RecipeContext.Provider value={{recipes, loading, error, currentPage, setSkipPages, setCurrentPage, filters, toggleFilter, setSearchValue}}>
